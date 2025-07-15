@@ -3,41 +3,58 @@ package com.donation.controller;
 import com.donation.model.user;
 import com.donation.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
-@RequestMapping("/api/users")
-@CrossOrigin(origins = "http://127.0.0.1:5500")  
+@RequestMapping("/api")
+@CrossOrigin(origins = "http://127.0.0.1:5500")  // allow frontend to access backend
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
 
-    //  Register new user
+    // Register user using form data
     @PostMapping("/register")
-    public user registerUser(@RequestBody user user) {
-        return userRepository.save(user);
+    public ResponseEntity<String> registerUser(
+            @RequestParam String name,
+            @RequestParam String email,
+            @RequestParam String password,
+            @RequestParam (required = false) String role
+    ) {
+        user newUser = new user();
+        newUser.setName(name);
+        newUser.setEmail(email);
+        newUser.setPassword(password);
+        newUser.setRole("user"); 
+
+        userRepository.save(newUser);
+        return ResponseEntity.ok("User registered successfully");
     }
 
-    //  Login 
+    // Login using form data
     @PostMapping("/login")
-    public String loginUser(@RequestBody user loginRequest) {
-        user user = userRepository.findByEmail(loginRequest.getEmail());
+    public ResponseEntity<String> loginUser(
+            @RequestParam String name,
+            @RequestParam String email,
+            @RequestParam String password,
+            @RequestParam (required = false) String role
+    ) {
+        user user = userRepository.findByEmail(email);
 
         if (user == null) {
-            return "User not found!";
+            return ResponseEntity.badRequest().body("User not found!");
         }
 
-        if (!user.getPassword().equals(loginRequest.getPassword())) {
-            return "Invalid password!";
+        if (!user.getPassword().equals(password)) {
+            return ResponseEntity.badRequest().body("Invalid password!");
         }
 
-        return "Login successful as " + user.getRole();
+        return ResponseEntity.ok("Login successful as " + user.getRole());
     }
 
-    //  Get all users 
-    @GetMapping
+    //  Get all users
+    @GetMapping("/users")
     public Iterable<user> getAllUsers() {
         return userRepository.findAll();
     }
