@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Events</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="logo">Campaign Events</div>
+    <div class="auth-buttons">
+      <a href="admin-dashboard.html" class="btn">Back</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="form-container">
+      <h2>Create New Event</h2>
+      <form id="eventForm">
+        <label for="title">Event Title</label>
+        <input type="text" id="title" name="title" required />
+
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="3" required></textarea>
+
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" required />
+
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location" required />
+
+        <label for="campaign">Campaign ID</label>
+        <input type="number" id="campaign_id" name="campaign_id" required />
+
+        <button type="submit">Create Event</button>
+      </form>
+    </section>
+
+    <section class="event-list">
+      <h2>All Events</h2>
+      <ul id="eventList">
+        <!-- Events will be listed here -->
+      </ul>
+    </section>
+  </main>
+
+  <script src="js/events.js"></script>
+</body>
+</html>
