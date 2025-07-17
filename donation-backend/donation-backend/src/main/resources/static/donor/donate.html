@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Make a Donation</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="logo">Make a Donation</div>
+    <div class="auth-buttons">
+      <a href="donor.html" class="btn">Back</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="form-container">
+      <h2>Donation Form</h2>
+      <form id="donationForm">
+        <label for="campaign">Select Campaign</label>
+        <select id="campaign" name="campaign" required>
+          <!-- Options will be loaded by JS -->
+        </select>
+
+        <label for="amount">Amount</label>
+        <input type="number" id="amount" name="amount" step="0.01" required />
+
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" required />
+
+        <label for="status">Status</label>
+        <select id="status" name="status" required>
+            <option value="">Select Status</option>
+            <option value="pending">Pending</option>
+            <option value="confirmed">Confirmed</option>
+        </select>
+
+        <button type="submit">Submit Donation</button>
+      </form>
+    </div>
+  </main>
+
+  <script src="donate.js"></script>
+</body>
+</html>
